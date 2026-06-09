@@ -66,7 +66,12 @@ SQLite라는 이름 아래 두 가지 산출물이 있다. 헷갈리기 쉬우�
 - 컴파일러 최적화: 단일 translation unit이라 inter-procedure inlining이 잘 먹어 5~10% 더 빠른 코드
 - 빌드 단순성: makefile 한 줄로 컴파일 가능
 
-링크 방식 선택지는 두 가지다. (1) OS가 제공하는 시스템 라이브러리(`libsqlite3-dev` 등)를 링크 — 의존성 관리 도구(vcpkg/Conan) 없이 가능. (2) amalgamation 동봉 — SQLite 버전을 프로젝트가 핀하고 싶을 때 유리. 운영 부담만 보면 1인 로컬 도구엔 (1)이 가장 가볍다.
+링크 방식 선택지는 두 가지다.
+
+1. OS가 제공하는 시스템 라이브러리(`libsqlite3-dev` 등)를 링크 — 의존성 관리 도구(vcpkg/Conan) 없이 가능.
+2. amalgamation 동봉 — SQLite 버전을 프로젝트가 핀하고 싶을 때 유리.
+
+운영 부담만 보면 1인 로컬 도구엔 (1)이 가장 가볍다.
 
 ### 라이선스와 소스 관리
 
@@ -127,7 +132,12 @@ sqlite3_finalize(stmt);                  // 누락 시 메모리 누수
 sqlite3_close(db);
 ```
 
-핵심 규약: `sqlite3_prepare_v2` 사용, `sqlite3_finalize` 필수, 대량 INSERT는 트랜잭션으로 묶기(`BEGIN; ... COMMIT;` — 안 그러면 매 INSERT마다 fsync가 일어나 100~1000배 느려짐), 모든 반환 코드 확인(SQLITE_OK / SQLITE_DONE / SQLITE_ROW).
+핵심 규약:
+
+- `sqlite3_prepare_v2` 사용
+- `sqlite3_finalize` 필수
+- 대량 INSERT는 트랜잭션으로 묶기 (`BEGIN; ... COMMIT;` — 안 그러면 매 INSERT마다 fsync가 일어나 100~1000배 느려짐)
+- 모든 반환 코드 확인 (SQLITE_OK / SQLITE_DONE / SQLITE_ROW)
 
 빌드(시스템 라이브러리): `sudo apt install libsqlite3-dev` 후 `g++ main.cpp -lsqlite3 -o app`.
 
