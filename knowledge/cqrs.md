@@ -11,11 +11,20 @@ relations:
 
 ## 핵심
 
-CQRS는 "**상태를 바꾸는 명령(Command)**과 **상태를 읽는 조회(Query)**를 책임 단위로 분리한다"는 패턴이다. 이름 그대로 Command/Query의 **Responsibility(책임)**를 **Segregation(분리)**한다. Greg Young이 Bertrand Meyer의 CQS(Command Query Separation) 원칙을 아키텍처 수준으로 확장하며 명명했다. 한 줄 핵심:
+CQRS는 "**상태를 바꾸는 명령(Command)**과 **상태를 읽는 조회(Query)**를 책임 단위로 분리한다"는 패턴이다.
+
+- 이름 그대로 Command/Query의 **Responsibility(책임)**를 **Segregation(분리)**한다.
+- Greg Young이 Bertrand Meyer의 CQS(Command Query Separation) 원칙을 아키텍처 수준으로 확장하며 명명했다.
+
+한 줄 핵심:
 
 > **쓰기 경로와 읽기 경로를 같은 모델로 억지로 처리하지 말고, 둘을 별개의 책임으로 나눈다.**
 
-중요한 것은 CQRS가 **스펙트럼**이라는 점이다. 가장 가벼운 "입력을 Command/Query 객체로 나누는 수준"부터, "read 모델과 write 모델을 따로 두는 수준", 더 나아가 "read DB / write DB를 물리적으로 분리하고 이벤트소싱과 결합하는 수준"까지 넓게 펼쳐진다.
+중요한 것은 CQRS가 **스펙트럼**이라는 점이다. 가장 가벼운 쪽부터 가장 무거운 쪽까지 단계적으로 펼쳐진다:
+
+- 입력을 Command/Query 객체로 나누는 수준
+- read 모델과 write 모델을 따로 두는 수준
+- read DB / write DB를 물리적으로 분리하고 이벤트소싱과 결합하는 수준
 
 ## 1. 뿌리 — CQS(Command Query Separation) 원칙
 
