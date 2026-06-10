@@ -64,24 +64,20 @@ Port라는 약속을 실제 기술로 구현하거나 호출하는 바깥쪽 코
 
 ## 3. 의존성 방향 — 이 그림 하나가 전부다
 
+```mermaid
+flowchart TD
+    CLI["CLI Adapter<br/>(Driving Adapter)"] -->|"호출"| DP(["Driving Port"])
+    DP --> CORE["CORE<br/>Application + Domain"]
+    CORE --> PORT(["Driven Port"])
+    ADP["SQLite / Logger / Config<br/>(Driven Adapter)"] -.->|"implement"| PORT
 ```
-   [CLI Adapter]            <- Driving Adapter
-        |  호출
-        v
-   ( Driving Port = UseCase 인터페이스 )
-        |
-   +----------------------------+
-   |   APPLICATION  (UseCase)   |   <- CORE: 외부 라이브러리 import 0
-   |   DOMAIN (Entity, VO,      |
-   |          Domain Service)   |
-   +----------------------------+
-        |  Driven Port 호출 (인터페이스)
-        v
-   ( Repository / Logger / ConfigLoader 인터페이스 )
-        ^  implement (의존성 역전!)
-        |
-   [SQLite Adapter] [Logger Adapter] [Config Adapter]   <- Driven Adapter
-```
+
+그림 읽는 법:
+
+- **Driving Port** = UseCase 인터페이스
+- **CORE** (Application + Domain) -- 외부 라이브러리 import 0
+- **Driven Port** = Repository · Logger · ConfigLoader 인터페이스
+- 점선(`implement`) -- Driven Adapter 가 코어의 Port 를 구현한다. 컴파일 의존성이 바깥에서 코어로 향함 = **의존성 역전**
 
 화살표를 정확히 읽는 것이 핵심이다.
 
@@ -219,14 +215,45 @@ private:
 
 ## 흔한 오해 / 반례
 
-- **"헥사고날 = 3계층(controller/service/repository)의 다른 이름"** — 아니다. 3계층은 의존성이 위 -> 아래 단방향(service가 repository 구현을 안다). 헥사고날의 본질은 **의존성 역전**으로, repository 구현이 코어 인터페이스를 implement 한다(바깥 -> 안). 화살표 방향이 정반대다.
-- **"육각형이라 변이 6개여서 의미가 있다"** — 없다. 6은 그냥 "여러 개의 포트를 그릴 공간"의 상징일 뿐. 포트 개수와 무관하다. Cockburn도 숫자에 의미가 없다고 명시했다.
-- **"Port와 Adapter는 1:1"** — 아니다. 하나의 Driven Port(`Repository`)를 SQLite·in-memory·JSON 어댑터가 각각 구현할 수 있다(테스트용 가짜 포함). 하나의 Driving Port(UseCase)를 CLI·LLM·GUI 어댑터가 동시에 호출할 수 있다. N:1이 정상.
-- **"코어가 Repository를 호출하니 코어가 DB를 아는 것 아니냐"** — 런타임 호출과 컴파일 타임 의존성을 혼동한 것. 코어는 `Repository` **인터페이스**만 컴파일 타임에 알고, 실제 `SqliteRepository` 인스턴스는 런타임에 주입받아 호출할 뿐 그 타입을 모른다.
-- **"Driving/Driven은 입력/출력과 같다"** — 대체로 맞지만 정확히는 **"누가 누구를 호출하느냐(제어 흐름의 방향)"** 기준이다. Driving = 바깥이 코어를 호출(코어가 수동), Driven = 코어가 바깥을 호출(코어가 능동). 데이터 방향이 아니라 제어 방향이다.
-- **"Composition Root가 비대해지면 설계가 잘못된 것"** — 아니다. 진입점이 모든 구체를 알고 배선이 길어지는 것은 **정상이고 의도된 것**이다. 더러움을 한 점에 모으는 것이 목적. 다만 배선 로직에 if/비즈니스 분기가 섞이면 그건 문제.
-- **"헥사고날을 쓰면 DDD를 안 써도 된다 / 써야만 된다"** — 직교 관계다. 헥사고날은 "바깥과의 격리 구조", DDD는 "도메인 모델링 방법". 코어 내부(domain)를 DDD로 채우면 둘이 자연스럽게 맞물리지만 강제는 아니다.
-- **"작은 로컬 도구엔 과하다"** — 단기적으로는 맞는 지적이다. 정당화 근거는 오직 미래 어댑터 확장/교체. 그 계획이 없다면 오버엔지니어링이 될 수 있음을 인지하고 채택하는 트레이드오프다.
+> **오해:** "헥사고날 = 3계층(controller/service/repository)의 다른 이름"
+> - 3계층은 의존성이 위 -> 아래 단방향이다(service가 repository 구현을 안다).
+> - 헥사고날의 본질은 **의존성 역전**으로, repository 구현이 코어 인터페이스를 implement 한다(바깥 -> 안).
+> - 화살표 방향이 정반대다.
+
+> **오해:** "육각형이라 변이 6개여서 의미가 있다"
+> - 6은 그냥 "여러 개의 포트를 그릴 공간"의 상징일 뿐, 포트 개수와 무관하다.
+> - Cockburn도 숫자에 의미가 없다고 명시했다.
+
+> **오해:** "Port와 Adapter는 1:1"
+> - 하나의 Driven Port(`Repository`)를 SQLite·in-memory·JSON 어댑터가 각각 구현할 수 있다(테스트용 가짜 포함).
+> - 하나의 Driving Port(UseCase)를 CLI·LLM·GUI 어댑터가 동시에 호출할 수 있다.
+>
+> > **반례:** N:1이 정상이다.
+
+> **오해:** "코어가 Repository를 호출하니 코어가 DB를 아는 것 아니냐"
+> - 런타임 호출과 컴파일 타임 의존성을 혼동한 것이다.
+> - 코어는 `Repository` **인터페이스**만 컴파일 타임에 알고, 실제 `SqliteRepository` 인스턴스는 런타임에 주입받아 호출할 뿐 그 타입을 모른다.
+
+> **오해:** "Driving/Driven은 입력/출력과 같다"
+> - 대체로 맞지만 정확히는 **"누가 누구를 호출하느냐(제어 흐름의 방향)"** 기준이다.
+> - Driving = 바깥이 코어를 호출(코어가 수동).
+> - Driven = 코어가 바깥을 호출(코어가 능동).
+> - 데이터 방향이 아니라 제어 방향이다.
+
+> **오해:** "Composition Root가 비대해지면 설계가 잘못된 것"
+> - 진입점이 모든 구체를 알고 배선이 길어지는 것은 **정상이고 의도된 것**이다.
+> - 더러움을 한 점에 모으는 것이 목적이다.
+> - 다만 배선 로직에 if/비즈니스 분기가 섞이면 그건 문제다.
+
+> **오해:** "헥사고날을 쓰면 DDD를 안 써도 된다 / 써야만 된다"
+> - 직교 관계다.
+> - 헥사고날은 "바깥과의 격리 구조", DDD는 "도메인 모델링 방법"이다.
+> - 코어 내부(domain)를 DDD로 채우면 둘이 자연스럽게 맞물리지만 강제는 아니다.
+
+> **오해:** "작은 로컬 도구엔 과하다"
+> - 단기적으로는 맞는 지적이다.
+> - 정당화 근거는 오직 미래 어댑터 확장/교체다.
+> - 그 계획이 없다면 오버엔지니어링이 될 수 있음을 인지하고 채택하는 트레이드오프다.
 
 ## 참고 자료
 

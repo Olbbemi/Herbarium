@@ -71,17 +71,23 @@ Hexagonal Architecture 어휘로는 1+4가 **Adapter**, 2+3이 **Core** (Ports�
 
 외부 입력을 Command 객체로 바꿔 Use Case에 넘기는 흐름:
 
+```mermaid
+flowchart TD
+    IN(["입력"]) -->|"adapter 파싱"| CMD["CreateEventCommand"]
+    CMD --> AS["CreateEventUseCase<br/>Application Service"]
+    AS --> DOM["Domain Layer<br/>Calendar · Event · TimeRange"]
+    AS --> INF["Infrastructure<br/>영속화"]
 ```
-[입력]  ->  [Adapter: parse]  ->  CreateEventCommand { calendarId, title, timeRange }
-        ->  [Application Service: CreateEventUseCase]
-              1. Calendar 로드 (Repository)
-              2. Event 생성 (도메인 객체)
-              3. Calendar.addEvent(event)  -- 충돌 검사 등 도메인 규칙은 Aggregate가 책임
-              4. 저장 (Repository)
-              5. EventCreated 도메인 이벤트 발행
-        ->  [Domain Layer]  Calendar, Event, TimeRange
-        ->  [Infrastructure]  영속화
-```
+
+각 노드의 상세:
+
+- **CreateEventCommand** `{ calendarId, title, timeRange }`
+- **CreateEventUseCase** (Application Service) 단계:
+  1. Calendar 로드 (Repository)
+  2. Event 생성 (도메인 객체)
+  3. Calendar.addEvent(event) -- 충돌 검사 등 도메인 규칙은 Aggregate가 책임
+  4. 저장 (Repository)
+  5. EventCreated 도메인 이벤트 발행
 
 핵심: **Use Case는 입력이 CLI에서 왔는지 LLM에서 왔는지 모른다.** Command 객체(=의도 객체)만 받는다.
 
@@ -197,13 +203,35 @@ class CreateEventUseCase:
 
 ## 흔한 오해 / 반례
 
-- **"DDD = 마이크로서비스"** — 아니다. 단일 프로세스 모놀리스에도 적용된다. Bounded Context가 마이크로서비스 경계와 자주 일치할 뿐이다.
-- **"Aggregate = 큰 객체 트리"** — 아니다. Aggregate는 **일관성 경계**다. 큰 트리는 안티패턴(성능·동시성 문제). 작게 유지하고 다른 Aggregate와는 ID 참조 + Domain Event로 연결.
-- **"Entity면 무조건 setter"** — 아니다. 도메인 의미가 있는 메서드(`reschedule`, `cancel`)로 노출한다. 빈약한 도메인 모델(Anemic Domain Model) 회피.
-- **"Value Object는 단순 DTO"** — 아니다. VO는 **불변식**과 **도메인 동작**을 가질 수 있다 (`TimeRange.overlaps()` 등).
-- **"Repository = ORM Repository"** — 아니다. DDD Repository는 도메인 측 인터페이스다. ORM 구현체가 우연히 같은 이름을 쓸 뿐이다.
-- **"작은 프로젝트에 DDD를 다 적용하자"** — 오버엔지니어링. §5처럼 단계적으로 도입한다.
-- **"의도 단위 설계는 DDD가 있어야만 가능"** — 아니다. Hexagonal/Clean Architecture만으로도 가능. 단 DDD가 도메인 어휘·모델 정합성을 보장해주므로 같이 가는 게 자연스럽다.
+> **오해:** "DDD = 마이크로서비스"
+> - Bounded Context가 마이크로서비스 경계와 자주 일치할 뿐이다.
+>
+> > **반례:** 단일 프로세스 모놀리스에도 적용된다.
+
+> **오해:** "Aggregate = 큰 객체 트리"
+> - Aggregate는 **일관성 경계**다.
+> - 큰 트리는 안티패턴(성능·동시성 문제).
+> - 작게 유지하고 다른 Aggregate와는 ID 참조 + Domain Event로 연결.
+
+> **오해:** "Entity면 무조건 setter"
+> - 도메인 의미가 있는 메서드(`reschedule`, `cancel`)로 노출한다.
+> - 빈약한 도메인 모델(Anemic Domain Model) 회피.
+
+> **오해:** "Value Object는 단순 DTO"
+> - VO는 **불변식**과 **도메인 동작**을 가질 수 있다 (`TimeRange.overlaps()` 등).
+
+> **오해:** "Repository = ORM Repository"
+> - DDD Repository는 도메인 측 인터페이스다.
+> - ORM 구현체가 우연히 같은 이름을 쓸 뿐이다.
+
+> **오해:** "작은 프로젝트에 DDD를 다 적용하자"
+> - 오버엔지니어링이다.
+> - §5처럼 단계적으로 도입한다.
+
+> **오해:** "의도 단위 설계는 DDD가 있어야만 가능"
+> - DDD가 도메인 어휘·모델 정합성을 보장해주므로 같이 가면 자연스럽다.
+>
+> > **반례:** Hexagonal/Clean Architecture만으로도 가능하다.
 
 ## 참고 자료
 
