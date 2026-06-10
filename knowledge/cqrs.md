@@ -91,24 +91,29 @@ L1 수준의 가벼운 분리만으로도 실익이 분명하다.
 
 ## 6. 데이터 흐름에서의 Command / Query
 
-```
-[쓰기 입력]                                  [읽기 입력]
-        |                                          |
-        v  (adapter 파싱)                           v
-  CreateEventCommand { title, start, end }    ListEventsQuery { date }
-        |                                          |
-        v                                          v
-[CreateEventUseCase]  -- Command 핸들러     [ListEventsUseCase]  -- Query 핸들러
-  1. 도메인 객체 생성/규칙 검증                  1. Repository 조회
-  2. Repository.save (상태 변경)               2. Result로 매핑 (상태 변경 X)
-  3. Result 반환                               3. Result 반환
-        |                                          |
-        +------------------+-----------------------+
-                           v
-              [단일 DB]  <- 읽기·쓰기 같은 DB, 같은 도메인 모델 공유 (L1)
+```mermaid
+flowchart TD
+    WI(["쓰기 입력"]) -->|"adapter 파싱"| CMD["CreateEventCommand"]
+    RI(["읽기 입력"]) -->|"adapter 파싱"| QRY["ListEventsQuery"]
+    CMD --> CUC["CreateEventUseCase<br/>Command 핸들러"]
+    QRY --> QUC["ListEventsUseCase<br/>Query 핸들러"]
+    CUC --> DB[("단일 DB")]
+    QUC --> DB
 ```
 
-왼쪽(Command)은 상태를 바꾸고, 오른쪽(Query)은 조회만 한다. 하지만 둘은 **같은 도메인 모델과 같은 DB**를 공유한다 — 이 지점이 L1과 L2/L3를 가르는 경계다.
+각 경로의 입력과 단계:
+
+- **CreateEventCommand** `{ title, start, end }` -> **CreateEventUseCase** (Command 핸들러)
+  1. 도메인 객체 생성/규칙 검증
+  2. Repository.save (상태 변경)
+  3. Result 반환
+- **ListEventsQuery** `{ date }` -> **ListEventsUseCase** (Query 핸들러)
+  1. Repository 조회
+  2. Result로 매핑 (상태 변경 X)
+  3. Result 반환
+- **단일 DB** -- 읽기·쓰기 같은 DB · 같은 도메인 모델 공유 (L1)
+
+Command 측은 상태를 바꾸고, Query 측은 조회만 한다. 하지만 둘은 **같은 도메인 모델과 같은 DB**를 공유한다 — 이 지점이 L1과 L2/L3를 가르는 경계다.
 
 ## 예시 / 코드
 
@@ -167,14 +172,44 @@ read 측이 도메인 모델을 우회해 조회 전용 뷰를 직접 다루기 
 
 ## 흔한 오해 / 반례
 
-- **"CQRS = 이벤트소싱(Event Sourcing)"** — 아니다. 가장 흔한 오해다. 둘은 자주 **함께** 쓰여 한 덩어리로 보이지만 **독립적인 두 패턴**이다. CQRS 없이 ES만, ES 없이 CQRS(L1~L3)만 쓸 수도 있다.
-- **"CQRS면 read DB / write DB를 반드시 나눠야 한다"** — 아니다. 저장소 분리(L3)는 스펙트럼의 깊은 끝일 뿐 정의가 아니다. **같은 DB, 같은 모델을 공유하면서 Command/Query 책임만 나누는 것(L1)도 엄연히 CQRS**다.
-- **"CQRS는 항상 결과적 일관성(eventual consistency)을 동반한다"** — 아니다. 결과적 일관성은 write DB -> read DB 동기화(L3)에서 따라온다. 단일 DB(L1/L2)에서는 읽기가 항상 최신 쓰기를 본다(강한 일관성).
-- **"CQRS는 메시지 큐 / 메시지 버스가 필요하다"** — 아니다. 메시지 인프라는 L3/L4의 비동기 동기화·이벤트 전파에서 등장한다. L1의 Command/Query 객체 분리는 그저 함수 호출이며 어떤 미들웨어도 요구하지 않는다.
-- **"CQRS는 마이크로서비스용 기술"** — 아니다. DDD와 마찬가지로 단일 프로세스 모놀리스/CLI 도구에도 적용된다. 마이크로서비스에서 자주 쓰일 뿐 전제는 아니다.
-- **"Command가 값을 반환하면 CQRS 위반"** — 엄밀한 CQS는 Command의 반환을 금하지만, 실무 CQRS는 흔히 새로 생성된 식별자(`event_id`)나 성공/실패 `Result` 정도는 반환을 허용한다. 순수 CQS와 실무 CQRS의 타협 지점이다.
-- **"CQRS를 쓰면 코드가 두 배가 되니 항상 손해"** — 비용은 채택 레벨에 비례한다. L1은 "입력 객체를 두 이름으로 나누는" 정도라 비용이 낮다. 비용이 폭증하는 것은 L3/L4다. 레벨을 혼동하면 "CQRS = 비싸다"는 잘못된 일반화에 빠진다.
-- **"CQS(메서드 원칙)와 CQRS(아키텍처 패턴)는 같은 말"** — 다르다. CQS는 Meyer의 메서드 수준 원칙, CQRS는 그것을 객체/아키텍처 수준으로 확장한 패턴(Greg Young 명명). 부모-자식 관계지 동의어가 아니다.
+> **오해:** "CQRS = 이벤트소싱(Event Sourcing)" (가장 흔한 오해)
+> - 둘은 자주 함께 쓰여 한 덩어리로 보이지만 **독립적인 두 패턴**이다.
+>
+> > **반례:** CQRS 없이 ES만, ES 없이 CQRS(L1~L3)만 쓸 수도 있다.
+
+> **오해:** "CQRS면 read DB / write DB를 반드시 나눠야 한다"
+> - 저장소 분리(L3)는 스펙트럼의 깊은 끝일 뿐 정의가 아니다.
+>
+> > **반례:** 같은 DB, 같은 모델을 공유하면서 Command/Query 책임만 나누는 것(L1)도 엄연히 CQRS다.
+
+> **오해:** "CQRS는 항상 결과적 일관성(eventual consistency)을 동반한다"
+> - 결과적 일관성은 write DB -> read DB 동기화(L3)에서 따라온다.
+>
+> > **반례:** 단일 DB(L1/L2)에서는 읽기가 항상 최신 쓰기를 본다(강한 일관성).
+
+> **오해:** "CQRS는 메시지 큐 / 메시지 버스가 필요하다"
+> - 메시지 인프라는 L3/L4의 비동기 동기화·이벤트 전파에서 등장한다.
+>
+> > **반례:** L1의 Command/Query 객체 분리는 그저 함수 호출이며 어떤 미들웨어도 요구하지 않는다.
+
+> **오해:** "CQRS는 마이크로서비스용 기술"
+> - DDD와 마찬가지로 단일 프로세스 모놀리스/CLI 도구에도 적용된다.
+> - 마이크로서비스에서 자주 쓰일 뿐 전제는 아니다.
+
+> **오해:** "Command가 값을 반환하면 CQRS 위반"
+> - 엄밀한 CQS는 Command의 반환을 금하지만, 실무 CQRS는 흔히 새로 생성된 식별자(`event_id`)나 성공/실패 `Result` 정도는 반환을 허용한다.
+> - 순수 CQS와 실무 CQRS의 타협 지점이다.
+
+> **오해:** "CQRS를 쓰면 코드가 두 배가 되니 항상 손해"
+> - 비용은 채택 레벨에 비례한다.
+> - L1은 "입력 객체를 두 이름으로 나누는" 정도라 비용이 낮다.
+> - 비용이 폭증하는 것은 L3/L4다.
+> - 레벨을 혼동하면 "CQRS = 비싸다"는 잘못된 일반화에 빠진다.
+
+> **오해:** "CQS(메서드 원칙)와 CQRS(아키텍처 패턴)는 같은 말"
+> - CQS는 Meyer의 메서드 수준 원칙이다.
+> - CQRS는 그것을 객체/아키텍처 수준으로 확장한 패턴이다(Greg Young 명명).
+> - 부모-자식 관계지 동의어가 아니다.
 
 ## 참고 자료
 
