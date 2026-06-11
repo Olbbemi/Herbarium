@@ -37,7 +37,8 @@ SQLite는 "서버가 없는" 관계형 DB다. 별도 데몬을 띄우지 않고 
 
 ### Embedded DB의 본질 — 프로세스 분리가 없다
 
-MySQL/PostgreSQL 같은 client-server DB는 독립 데몬(`mysqld`, `postgres`), 네트워크 포트/소켓, 자체 인증·권한 시스템, 데몬 라이프사이클을 가진다. SQLite는 이 중 어느 것도 없다. SQLite의 "DB 엔진"은 함수의 집합(C 라이브러리)이며, 앱이 그 함수를 호출하는 순간 DB 엔진이 실행된다.
+MySQL/PostgreSQL 같은 client-server DB는 독립 데몬(`mysqld`, `postgres`), 네트워크 포트/소켓, 자체 인증·권한 시스템, 데몬 라이프사이클을 가진다.<br>
+SQLite는 이 중 어느 것도 없다. SQLite의 "DB 엔진"은 함수의 집합(C 라이브러리)이며, 앱이 그 함수를 호출하는 순간 DB 엔진이 실행된다.
 
 - 앱 프로세스 == DB 프로세스 (분리되어 있지 않음)
 - "접속"은 사실상 `fopen()`에 가깝다 (`sqlite3_open()`이 `.db` 파일을 연다)
@@ -82,7 +83,8 @@ SQLite라는 이름 아래 두 가지 산출물이 있다. 헷갈리기 쉬우�
 
 ### 품질 보증 — 100% 분기 커버리지
 
-SQLite가 광범위하게 쓰이는 핵심 근거는 테스트 수준이다. TH3(Test Harness #3)라는 비공개 C 테스트 슈트가 100% 분기 커버리지 + 100% MC/DC 커버리지를 달성하며, 모든 릴리스가 TH3 검증 후 배포된다(3.6.17/2009 이후 전 릴리스 통과). 이 신뢰성 때문에 Apple(iOS/macOS), Google(Android), Adobe, Mozilla 등이 자사 제품에 SQLite를 내장했고, 결과적으로 "지구상에서 가장 많이 배포된 DB 엔진"으로 추정된다.
+SQLite가 광범위하게 쓰이는 핵심 근거는 테스트 수준이다. TH3(Test Harness #3)라는 비공개 C 테스트 슈트가 100% 분기 커버리지 + 100% MC/DC 커버리지를 달성하며, 모든 릴리스가 TH3 검증 후 배포된다(3.6.17/2009 이후 전 릴리스 통과).<br>
+이 신뢰성 때문에 Apple(iOS/macOS), Google(Android), Adobe, Mozilla 등이 자사 제품에 SQLite를 내장했고, 결과적으로 "지구상에서 가장 많이 배포된 DB 엔진"으로 추정된다.
 
 ### 동시성 모델 — WAL과 단일 writer
 

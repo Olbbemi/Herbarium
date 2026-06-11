@@ -65,7 +65,10 @@ Hexagonal Architecture 어휘로는 1+4가 **Adapter**, 2+3이 **Core** (Ports�
 
 ### (d) Bounded Context (경계 컨텍스트)
 
-큰 시스템이 되면 한 모델로 전체를 표현할 수 없다. 도메인을 여러 컨텍스트로 분할한다. 각 컨텍스트는 같은 단어를 다르게 정의할 수 있다(예: Scheduling의 `Event`와 Notification의 `Event`는 다른 모델). 컨텍스트 간 관계는 **Context Map**으로 명시한다 (Customer/Supplier, Anti-Corruption Layer 등). Bounded Context는 마이크로서비스 경계와 자주 일치하지만, 단일 모놀리스에도 그대로 적용된다.
+큰 시스템이 되면 한 모델로 전체를 표현할 수 없다. 도메인을 여러 컨텍스트로 분할한다.<br>
+각 컨텍스트는 같은 단어를 다르게 정의할 수 있다(예: Scheduling의 `Event`와 Notification의 `Event`는 다른 모델).<br>
+컨텍스트 간 관계는 **Context Map**으로 명시한다 (Customer/Supplier, Anti-Corruption Layer 등).<br>
+Bounded Context는 마이크로서비스 경계와 자주 일치하지만, 단일 모놀리스에도 그대로 적용된다.
 
 ## 3. 의도(Intent) 단위 설계 = Application Service
 
