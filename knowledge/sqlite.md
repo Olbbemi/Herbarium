@@ -9,24 +9,7 @@ tags:
   - sqlite
   - serverless-db
   - acid
-relations:
-  contrasts_with:
-    - mysql
-    - postgresql
-  same_family:
-    - duckdb
-    - leveldb
-    - rocksdb
-    - berkeley-db
-  related:
-    - repository-pattern
-    - hexagonal-architecture
-    - wal
-    - acid-transaction
-    - public-domain
-    - fossil-vcs
-    - amalgamation
-    - prepared-statement
+relations: [contrasts_with:mysql, contrasts_with:postgresql, same_family:duckdb, same_family:leveldb, same_family:rocksdb, same_family:berkeley-db, related:repository-pattern, related:hexagonal-architecture, related:wal, related:acid-transaction, related:public-domain, related:fossil-vcs, related:amalgamation, related:prepared-statement]
 ---
 
 ## 한 줄 정의

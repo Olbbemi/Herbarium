@@ -4,9 +4,7 @@ title: CQRS (Command Query Responsibility Segregation)
 summary: 상태를 바꾸는 명령(Command)과 상태를 읽는 조회(Query)를 별개의 책임으로 분리하는 패턴. 입력 객체 분리(전술적)부터 모델 분리, 저장소 분리, 이벤트소싱 결합까지 깊이가 단계적으로 깊어지는 스펙트럼이다.
 category: software-architecture
 tags: [cqrs, cqs, command-query, read-write-separation, software-design]
-relations:
-  same_family: [cqs]
-  related: [domain-driven-design, hexagonal-architecture, event-sourcing, command-pattern, eventual-consistency, read-model, llm-function-calling]
+relations: [same_family:cqs, related:domain-driven-design, related:hexagonal-architecture, related:event-sourcing, related:command-pattern, related:eventual-consistency, related:read-model, related:llm-function-calling]
 ---
 
 ## 핵심

@@ -7,9 +7,7 @@ category: language-feature
 language: cpp
 since: C++20
 tags: [cpp, cpp20, concepts, templates, constraints, generic-programming]
-relations:
-  contrasts_with: [sfinae]
-  related: [template-metaprogramming, type-traits]
+relations: [contrasts_with:sfinae, related:template-metaprogramming, related:type-traits]
 ---
 
 ## 한 줄 정의

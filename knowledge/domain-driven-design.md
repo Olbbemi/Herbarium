@@ -4,10 +4,7 @@ title: Domain-Driven Design (DDD)
 summary: 업무 도메인을 소프트웨어 설계의 중심에 두는 패러다임. 도메인 로직을 인터페이스/인프라와 무관한 코어로 분리하고, 모든 계층이 같은 도메인 모델과 어휘를 중심으로 정렬되게 한다.
 category: software-architecture
 tags: [ddd, domain-model, ubiquitous-language, bounded-context, aggregate, software-design]
-relations:
-  contrasts_with: [anemic-domain-model]
-  same_family: [hexagonal-architecture, clean-architecture, onion-architecture]
-  related: [cqrs, event-sourcing, command-pattern, anti-corruption-layer, llm-function-calling]
+relations: [contrasts_with:anemic-domain-model, same_family:hexagonal-architecture, same_family:clean-architecture, same_family:onion-architecture, related:cqrs, related:event-sourcing, related:command-pattern, related:anti-corruption-layer, related:llm-function-calling]
 ---
 
 ## 핵심

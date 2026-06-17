@@ -4,10 +4,7 @@ title: TDD (Test-Driven Development)
 summary: 테스트를 먼저 쓰고 그 실패(RED)를 확인한 뒤 통과시키는 최소 코드를 쓰는 RED-GREEN-REFACTOR 사이클. TDD를 정의하는 것은 테스트의 존재가 아니라 작성 순서와 실패 확인이다.
 category: software-engineering
 tags: [testing, tdd, red-green-refactor, test-first, software-design]
-relations:
-  contrasts_with: [characterization-test, e2e-testing]
-  same_family: [bdd]
-  related: [regression-test, unit-test, test-double]
+relations: [contrasts_with:characterization-test, contrasts_with:e2e-testing, same_family:bdd, related:regression-test, related:unit-test, related:test-double]
 ---
 
 ## 핵심

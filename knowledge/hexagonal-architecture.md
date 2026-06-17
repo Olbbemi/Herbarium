@@ -4,10 +4,7 @@ title: Hexagonal Architecture (Ports & Adapters)
 summary: 애플리케이션 코어(도메인+유스케이스)를 중앙에 두고 바깥 세계와의 모든 접점을 Port(인터페이스)로 추상화한 뒤 Adapter만 바깥에 두는 구조. 의존성은 항상 바깥에서 코어로만 흐른다(의존성 역전).
 category: software-architecture
 tags: [hexagonal-architecture, ports-and-adapters, dependency-inversion, software-design, architecture]
-relations:
-  contrasts_with: [layered-architecture]
-  same_family: [clean-architecture, onion-architecture]
-  related: [domain-driven-design, cqrs, dependency-inversion-principle, dependency-injection, composition-root, repository-pattern, anti-corruption-layer]
+relations: [contrasts_with:layered-architecture, same_family:clean-architecture, same_family:onion-architecture, related:domain-driven-design, related:cqrs, related:dependency-inversion-principle, related:dependency-injection, related:composition-root, related:repository-pattern, related:anti-corruption-layer]
 ---
 
 ## 핵심
