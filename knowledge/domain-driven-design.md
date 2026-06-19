@@ -236,11 +236,11 @@ class CreateEventUseCase:
 ## 참고 자료
 
 - Eric Evans, *Domain-Driven Design: Tackling Complexity in the Heart of Software* (2003) — 원전
-- Martin Fowler, "Domain Driven Design" — https://martinfowler.com/bliki/DomainDrivenDesign.html
-- Martin Fowler, "Bounded Context" — https://www.martinfowler.com/bliki/BoundedContext.html
-- "Domain-driven design" — https://en.wikipedia.org/wiki/Domain-driven_design
-- Microsoft Learn, "Use Tactical DDD to Design Microservices" — https://learn.microsoft.com/en-us/azure/architecture/microservices/model/tactical-ddd
-- Herberto Graca, "DDD, Hexagonal, Onion, Clean, CQRS — How I put it all together" — https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/
-- Vaadin, "DDD and the Hexagonal Architecture" — https://vaadin.com/blog/ddd-part-3-domain-driven-design-and-the-hexagonal-architecture
-- Martin Fowler, "Function calling using LLMs" — https://www.martinfowler.com/articles/function-call-LLM.html
-- Sairyss, "domain-driven-hexagon" (실전 코드) — https://github.com/Sairyss/domain-driven-hexagon
+- Martin Fowler, "Domain Driven Design" — <https://martinfowler.com/bliki/DomainDrivenDesign.html>
+- Martin Fowler, "Bounded Context" — <https://www.martinfowler.com/bliki/BoundedContext.html>
+- "Domain-driven design" — <https://en.wikipedia.org/wiki/Domain-driven_design>
+- Microsoft Learn, "Use Tactical DDD to Design Microservices" — <https://learn.microsoft.com/en-us/azure/architecture/microservices/model/tactical-ddd>
+- Herberto Graca, "DDD, Hexagonal, Onion, Clean, CQRS — How I put it all together" — <https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/>
+- Vaadin, "DDD and the Hexagonal Architecture" — <https://vaadin.com/blog/ddd-part-3-domain-driven-design-and-the-hexagonal-architecture>
+- Martin Fowler, "Function calling using LLMs" — <https://www.martinfowler.com/articles/function-call-LLM.html>
+- Sairyss, "domain-driven-hexagon" (실전 코드) — <https://github.com/Sairyss/domain-driven-hexagon>

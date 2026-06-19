@@ -259,10 +259,10 @@ private:
 
 ## 참고 자료
 
-- Netflix Tech Blog, "Ready for changes with Hexagonal Architecture" — https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749 (실전 적용 사례)
-- Herberto Graca, "DDD, Hexagonal, Onion, Clean, CQRS — How I put it all together" — https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/
-- Vaadin, "DDD and the Hexagonal Architecture" — https://vaadin.com/blog/ddd-part-3-domain-driven-design-and-the-hexagonal-architecture
-- Martin Fowler, "Inversion of Control Containers and the Dependency Injection pattern" — https://martinfowler.com/articles/injection.html
-- Mark Seemann, "Composition Root" — https://blog.ploeh.dk/2011/07/28/CompositionRoot/
-- Robert C. Martin, "The Clean Architecture" — https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html (동심원 변형, 같은 의존성 규칙)
-- "Hexagonal architecture (software)" — https://en.wikipedia.org/wiki/Hexagonal_architecture_(software) (Cockburn 2005 원전 귀속 포함)
+- Netflix Tech Blog, "Ready for changes with Hexagonal Architecture" — <https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749> (실전 적용 사례)
+- Herberto Graca, "DDD, Hexagonal, Onion, Clean, CQRS — How I put it all together" — <https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/>
+- Vaadin, "DDD and the Hexagonal Architecture" — <https://vaadin.com/blog/ddd-part-3-domain-driven-design-and-the-hexagonal-architecture>
+- Martin Fowler, "Inversion of Control Containers and the Dependency Injection pattern" — <https://martinfowler.com/articles/injection.html>
+- Mark Seemann, "Composition Root" — <https://blog.ploeh.dk/2011/07/28/CompositionRoot/>
+- Robert C. Martin, "The Clean Architecture" — <https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html> (동심원 변형, 같은 의존성 규칙)
+- "Hexagonal architecture (software)" — <https://en.wikipedia.org/wiki/Hexagonal_architecture_(software>) (Cockburn 2005 원전 귀속 포함)

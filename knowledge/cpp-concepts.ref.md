@@ -71,6 +71,6 @@ T inc(T x) { return x + 1; }
 
 ## 참고 자료
 
-- cppreference, "Constraints and concepts" -- https://en.cppreference.com/w/cpp/language/constraints
-- cppreference, `<concepts>` -- https://en.cppreference.com/w/cpp/concepts
+- cppreference, "Constraints and concepts" -- <https://en.cppreference.com/w/cpp/language/constraints>
+- cppreference, `<concepts>` -- <https://en.cppreference.com/w/cpp/concepts>
 - P0734R0, "Wording Paper, C++ extensions for Concepts"

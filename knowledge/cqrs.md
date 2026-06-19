@@ -224,11 +224,11 @@ read 측이 도메인 모델을 우회해 조회 전용 뷰를 직접 다루기 
 
 ## 참고 자료
 
-- Martin Fowler, "CQRS" — https://martinfowler.com/bliki/CQRS.html (가장 균형 잡힌 입문. "대부분의 시스템에 CQRS는 필요 없다"는 경고 포함)
-- Martin Fowler, "CommandQuerySeparation" — https://martinfowler.com/bliki/CommandQuerySeparation.html (CQS 부모 원칙 정의)
-- Greg Young, "CQRS Documents" (PDF) — https://cqrs.wordpress.com/wp-content/uploads/2010/11/cqrs_documents.pdf (CQRS 명명자의 정리 문서)
-- Microsoft Learn, "CQRS pattern" — https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs (레벨별 트레이드오프와 적용 시점)
-- Microsoft Learn, "Apply simplified CQRS and DDD patterns in a microservice" — https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ (simplified CQRS = L1/L2)
+- Martin Fowler, "CQRS" — <https://martinfowler.com/bliki/CQRS.html> (가장 균형 잡힌 입문. "대부분의 시스템에 CQRS는 필요 없다"는 경고 포함)
+- Martin Fowler, "CommandQuerySeparation" — <https://martinfowler.com/bliki/CommandQuerySeparation.html> (CQS 부모 원칙 정의)
+- Greg Young, "CQRS Documents" (PDF) — <https://cqrs.wordpress.com/wp-content/uploads/2010/11/cqrs_documents.pdf> (CQRS 명명자의 정리 문서)
+- Microsoft Learn, "CQRS pattern" — <https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs> (레벨별 트레이드오프와 적용 시점)
+- Microsoft Learn, "Apply simplified CQRS and DDD patterns in a microservice" — <https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/> (simplified CQRS = L1/L2)
 - Bertrand Meyer, *Object-Oriented Software Construction* (2판, 1997) — CQS 원칙의 원전
-- Herberto Graca, "DDD, Hexagonal, Onion, Clean, CQRS — How I put it all together" — https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/
-- "Command Query Responsibility Segregation" — https://en.wikipedia.org/wiki/Command_Query_Responsibility_Segregation
+- Herberto Graca, "DDD, Hexagonal, Onion, Clean, CQRS — How I put it all together" — <https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/>
+- "Command Query Responsibility Segregation" — <https://en.wikipedia.org/wiki/Command_Query_Responsibility_Segregation>

@@ -91,6 +91,6 @@ RED 단계를 건너뛰면 테스트 자체가 잘못됐을 위험을 못 잡는
 ## 참고 자료
 
 - Kent Beck, *Test-Driven Development: By Example* (2002) -- RED-GREEN-REFACTOR 원전
-- Martin Fowler, "TestDrivenDevelopment" -- https://martinfowler.com/bliki/TestDrivenDevelopment.html
+- Martin Fowler, "TestDrivenDevelopment" -- <https://martinfowler.com/bliki/TestDrivenDevelopment.html>
 - Michael Feathers, *Working Effectively with Legacy Code* (2004) -- characterization test 개념의 출처
-- "Characterization test" -- https://en.wikipedia.org/wiki/Characterization_test
+- "Characterization test" -- <https://en.wikipedia.org/wiki/Characterization_test>
