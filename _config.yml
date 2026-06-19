@@ -1,0 +1,28 @@
+title: Herbarium Knowledge
+description: 확정지식 모음 — patterns, architecture, libraries, language features
+
+# 프로젝트 페이지(https://olbbemi.github.io/Herbarium/) 기준.
+# 커스텀 도메인/사용자 페이지로 바꾸면 baseurl 을 조정한다.
+url: "https://olbbemi.github.io"
+baseurl: "/Herbarium"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# wip 초안과 메타 파일은 사이트에서 제외 (knowledge 만 발행)
+exclude:
+  - wip
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .claude
+
+# 노트 md 에는 layout 필드를 박지 않으므로(promote 산출물 계약) 여기서 일괄 부여
+defaults:
+  - scope:
+      path: "knowledge"
+    values:
+      layout: note

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title and page.url != "/" %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-head">
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+  </header>
+
+  <main class="container">
+    {{ content }}
+  </main>
+
+  <footer class="site-foot">
+    <p>Herbarium · 확정지식</p>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+    // ```mermaid 코드블록을 mermaid.js 가 읽는 div.mermaid 로 변환한다(Jekyll 플러그인 미사용).
+    // rouge 에 mermaid 렉서가 없어 보통 <pre><code class="language-mermaid"> 로 나오지만,
+    // 환경에 따라 <div class="language-mermaid"> 형태도 있어 둘 다 처리한다.
+    document.querySelectorAll('code.language-mermaid, div.language-mermaid').forEach((el) => {
+      const host = el.tagName === 'CODE' ? (el.closest('pre') || el) : el;
+      const div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = el.textContent;
+      host.replaceWith(div);
+    });
+    await mermaid.run();
+  </script>
+</body>
+</html>

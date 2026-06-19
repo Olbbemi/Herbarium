@@ -1,0 +1,24 @@
+---
+layout: default
+---
+<div class="home">
+  <p class="home-lede">{{ site.description }}</p>
+
+  {% assign notes = site.pages | where_exp: "p", "p.id" %}
+  {% assign groups = notes | group_by: "category" | sort: "name" %}
+
+  {% for group in groups %}
+  <section class="cat-section" id="{{ group.name }}">
+    <h2 class="cat-name">{{ group.name | default: "uncategorized" }}</h2>
+    <ul class="note-list">
+      {% assign items = group.items | sort: "title" %}
+      {% for note in items %}
+      <li class="note-item">
+        <a class="note-item-link" href="{{ note.url | relative_url }}">{{ note.title }}</a>
+        {% if note.summary %}<span class="note-item-summary">{{ note.summary | strip_newlines | truncate: 110 }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>

@@ -1,0 +1,61 @@
+---
+layout: default
+---
+<article class="note">
+  <header class="note-head">
+    {% if page.category %}<a class="note-cat" href="{{ '/' | relative_url }}#{{ page.category }}">{{ page.category }}</a>{% endif %}
+    <h1 class="note-title">{{ page.title }}</h1>
+
+    {% if page.summary %}<p class="note-summary">{{ page.summary }}</p>{% endif %}
+
+    {% if page.kind or page.language or page.since %}
+    <p class="note-meta">
+      {% if page.kind %}<span><b>kind</b> {{ page.kind }}</span>{% endif %}
+      {% if page.language %}<span><b>lang</b> {{ page.language }}</span>{% endif %}
+      {% if page.since %}<span><b>since</b> {{ page.since }}</span>{% endif %}
+    </p>
+    {% endif %}
+
+    {% if page.tags %}
+    <p class="note-tags">
+      {% for t in page.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+    </p>
+    {% endif %}
+
+    {% if page.relations %}
+    {% comment %} 평탄 배열(타입:대상)을 타입별로 묶어 렌더 (저장 형식은 그대로) {% endcomment %}
+    {% assign types_str = "" %}
+    {% for rel in page.relations %}
+      {% assign rt = rel | split: ":" | first | strip %}
+      {% assign types_str = types_str | append: rt | append: "," %}
+    {% endfor %}
+    {% assign uniq_types = types_str | split: "," | uniq %}
+    <div class="note-rels">
+      {% for rtype in uniq_types %}
+      <div class="rel-group">
+        <span class="rel-type">{{ rtype }}</span>
+        <span class="rel-targets">
+          {% for rel in page.relations %}
+            {% assign parts = rel | split: ":" %}
+            {% assign pt = parts[0] | strip %}
+            {% if pt == rtype %}
+              {% assign rtarget = parts[1] | strip %}
+              {% assign tpage = site.pages | where: "id", rtarget | first %}
+              {% if tpage %}<a class="rel-link" href="{{ tpage.url | relative_url }}">{{ rtarget }}</a>{% else %}<span class="rel-missing" title="아직 없는 노드">{{ rtarget }}</span>{% endif %}
+            {% endif %}
+          {% endfor %}
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+
+  <div class="note-body">
+    {{ content }}
+  </div>
+
+  <nav class="note-foot-nav">
+    <a href="{{ '/' | relative_url }}">← 전체 목록</a>
+  </nav>
+</article>

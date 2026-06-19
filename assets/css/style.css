@@ -1,0 +1,283 @@
+/* Herbarium Knowledge — warm serif / book theme */
+
+:root {
+  --bg:        #f4ecdd;
+  --bg-card:   #efe5d0;
+  --code-bg:   #efe6d2;
+  --chip-bg:   #e9ddc4;
+  --text:      #2c2520;
+  --muted:     #786c59;
+  --accent:    #a23b1e;
+  --accent-2:  #b8623a;
+  --border:    #ddcfb4;
+  --border-2:  #cbbb9a;
+
+  --serif: "Spectral", Georgia, "Times New Roman", serif;
+  --mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --col: 1280px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---- site chrome ---- */
+
+.site-head {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 24px;
+}
+.site-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+.site-title:hover { color: var(--accent); text-decoration: none; }
+
+.container {
+  max-width: var(--col);
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+
+.site-foot {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 24px;
+}
+
+/* ---- home / index ---- */
+
+.home-lede {
+  color: var(--muted);
+  font-style: italic;
+  margin: 0 0 36px;
+}
+
+.cat-section { margin-bottom: 40px; scroll-margin-top: 20px; }
+
+.cat-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin: 0 0 14px;
+}
+
+.note-list { list-style: none; margin: 0; padding: 0; }
+.note-item { margin: 0 0 14px; }
+.note-item-link { font-size: 1.18rem; font-weight: 600; }
+.note-item-summary {
+  display: block;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* ---- note page ---- */
+
+.note-head { margin-bottom: 28px; }
+
+.note-cat {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: var(--chip-bg);
+  border: 1px solid var(--border-2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: 12px;
+}
+.note-cat:hover { color: var(--accent); text-decoration: none; }
+
+.note-title {
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 14px;
+}
+
+/* summary: promote 의 다문장 `|` 블록 스칼라 줄바꿈이 화면에 보이게 */
+.note-summary {
+  white-space: pre-line;
+  color: #43392f;
+  font-size: 1.05rem;
+  border-left: 3px solid var(--accent-2);
+  padding: 2px 0 2px 16px;
+  margin: 0 0 18px;
+}
+
+.note-meta {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+.note-meta span { margin-right: 14px; }
+.note-meta b { color: var(--text); font-weight: 600; }
+
+.note-tags { margin: 0 0 14px; line-height: 2.1; }
+.tag {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--muted);
+  background: var(--chip-bg);
+  border: 1px solid var(--border-2);
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-right: 6px;
+  white-space: nowrap;
+}
+
+.note-rels {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.rel-group {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+.rel-type {
+  flex: 0 0 auto;
+  min-width: 128px;
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+.rel-targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 14px;
+  font-size: 0.9rem;
+}
+.rel-link { font-weight: 600; }
+.rel-missing { color: var(--muted); border-bottom: 1px dashed var(--border-2); }
+
+/* ---- note body (rendered markdown) ---- */
+
+.note-body { font-size: 1.05rem; }
+
+.note-body h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2em 0 0.5em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.note-body h3 { font-size: 1.2rem; font-weight: 600; margin: 1.6em 0 0.4em; }
+.note-body h4 { font-size: 1.05rem; font-weight: 600; margin: 1.4em 0 0.3em; }
+.note-body p { margin: 0 0 1em; }
+.note-body ul, .note-body ol { margin: 0 0 1em; padding-left: 1.4em; }
+.note-body li { margin: 0.25em 0; }
+.note-body hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+
+/* inline + block code */
+.note-body code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+.note-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border-2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0 0 1.2em;
+  line-height: 1.5;
+}
+.note-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.82rem;
+}
+
+/* tables */
+.note-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 1.2em;
+  font-size: 0.92rem;
+}
+.note-body th, .note-body td {
+  border: 1px solid var(--border-2);
+  padding: 7px 11px;
+  text-align: left;
+  vertical-align: top;
+}
+.note-body th { background: var(--bg-card); font-weight: 600; }
+
+/* blockquote cards (흔한 오해 / 반례) */
+.note-body blockquote {
+  background: var(--bg-card);
+  border-left: 4px solid var(--accent-2);
+  border-radius: 0 6px 6px 0;
+  margin: 0 0 1em;
+  padding: 10px 16px;
+  color: #41382e;
+}
+.note-body blockquote p { margin: 0.3em 0; }
+.note-body blockquote blockquote {
+  background: #e7dcc4;
+  border-left-color: var(--muted);
+  margin-top: 0.6em;
+}
+
+.note-body img { max-width: 100%; height: auto; }
+
+/* mermaid */
+.mermaid {
+  text-align: center;
+  margin: 0 0 1.4em;
+  overflow-x: auto;
+}
+
+.note-foot-nav {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+/* ---- responsive ---- */
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  .container { padding: 28px 18px 48px; }
+  .note-title { font-size: 1.7rem; }
+  .rel-group { flex-direction: column; gap: 2px; }
+  .rel-type { text-align: left; min-width: 0; }
+}
