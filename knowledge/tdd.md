@@ -1,7 +1,9 @@
 ---
 id: tdd
 title: TDD (Test-Driven Development)
-summary: 테스트를 먼저 쓰고 그 실패(RED)를 확인한 뒤 통과시키는 최소 코드를 쓰는 RED-GREEN-REFACTOR 사이클. TDD를 정의하는 것은 테스트의 존재가 아니라 작성 순서와 실패 확인이다.
+summary: |
+  테스트를 먼저 쓰고 그 실패(RED)를 확인한 뒤 통과시키는 최소 코드를 쓰는 RED-GREEN-REFACTOR 사이클.
+  TDD를 정의하는 것은 테스트의 존재가 아니라 작성 순서와 실패 확인이다.
 category: software-engineering
 tags: [testing, tdd, red-green-refactor, test-first, software-design]
 relations: [contrasts_with:characterization-test, contrasts_with:e2e-testing, same_family:bdd, related:regression-test, related:unit-test, related:test-double]
@@ -55,12 +57,16 @@ RED 단계를 건너뛰면 테스트 자체가 잘못됐을 위험을 못 잡는
 
 | 모드 | 순서 | 첫 실행 결과 | 핵심 |
 |------|------|------------|------|
-| **진짜 TDD** | 테스트 -> 코드 | RED(실패) | 실패를 먼저 보고 통과시키는 코드를 쓴다 |
-| **characterization test 먼저** | 코드 -> 테스트 | 바로 GREEN | 이미 존재하는 동작을 테스트로 "박제"한다 |
-| **E2E만** | (단위 테스트 없음) | N/A | 단위 테스트 없이 실제 바이너리/엔드포인트로만 검증 |
+| **TDD** | 테스트 -> 코드 | RED(실패) | 실패를 먼저 보고 통과시키는 코드를 쓴다 |
+| **characterization test** | 코드 -> 테스트 | 바로 GREEN | 이미 존재하는 동작을 테스트로 "박제"한다 |
+| **E2E** | (단위 테스트 없음) | N/A | 단위 테스트 없이 실제 바이너리/엔드포인트로만 검증 |
 
-- **characterization test**: 코드가 이미 있어 테스트가 처음부터 green이다. RED 단계가 원천적으로 없으므로 TDD가 아니다. 목적은 "현재 동작을 고정해 이후 변경 시 깨지면 알려주기"다.
-- **E2E만**: 진입점/배선 지점(예: 진입점에서 의존성을 엮는 코드)처럼 단위 테스트로 잡기 번거로운 부분을 실제 바이너리 실행으로만 검증하는 방식. 단위 수준 RED-GREEN 사이클을 돌지 않는다.
+- **characterization test**
+  - 코드가 이미 있어 테스트가 처음부터 green이다. RED 단계가 원천적으로 없으므로 TDD가 아니다.
+  - 목적은 "현재 동작을 고정해 이후 변경 시 깨지면 알려주기"다.
+- **E2E**
+  - 진입점/배선 지점(예: 진입점에서 의존성을 엮는 코드)처럼 단위 테스트로 잡기 번거로운 부분을 실제 바이너리 실행으로만 검증하는 방식.
+  - 단위 수준 RED-GREEN 사이클을 돌지 않는다.
 
 ## 용어 정리
 - Regression test
