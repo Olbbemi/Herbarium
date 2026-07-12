@@ -31,6 +31,7 @@ wip/         작업 중 초안. 아직 확정되지 않은 메모.
 ## 지식이 쌓이는 흐름
 
 ```mermaid
+%%{init: {'flowchart': {'wrappingWidth': 400}}}%%
 flowchart TD
     A["초안 작성<br/>(wip/)"] --> B["knowledge-promote<br/>(정제)"]
     B --> C["promote/YYYY-MM-DD 브랜치<br/>PR 리뷰"]
