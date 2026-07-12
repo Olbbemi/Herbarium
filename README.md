@@ -32,9 +32,10 @@ wip/         작업 중 초안. 아직 확정되지 않은 메모.
 
 ```mermaid
 flowchart TD
-    A["초안 작성<br/>(wip/)"] --> B["knowledge-promote<br/>(정제 + 검토)"]
-    B --> C["확정지식 저장<br/>(knowledge/)"]
-    C --> D["GitHub Pages 게시<br/>(olbbemi.github.io/Herbarium)"]
+    A["초안 작성<br/>(wip/)"] --> B["knowledge-promote<br/>(정제)"]
+    B --> C["promote/YYYY-MM-DD 브랜치<br/>PR 리뷰"]
+    C --> D["머지 후 확정지식<br/>(knowledge/)"]
+    D --> E["GitHub Pages 게시<br/>(olbbemi.github.io/Herbarium)"]
 ```
 
 ---
@@ -42,4 +43,13 @@ flowchart TD
 ## 페이지 업데이트 방법
 
 Jekyll 4.3 + GitHub Actions 로 `knowledge/` 디렉터리를 정적 사이트로 자동 빌드한다.<br>
-`wip/` 과 메타 파일은 빌드에서 제외
+- `wip/` 과 메타 파일은 빌드에서 제외
+- `knowledge/` 변경이 `main` 에 반영되면 Actions 가 자동 배포
+
+---
+
+## 변경 반영 규칙
+
+- 확정지식(`knowledge/`)은 `main` 에 직접 올리지 않고, `promote/YYYY-MM-DD` 브랜치 -> PR 리뷰 -> 머지로 반영한다.
+- 사이트 골격·문서·규칙 파일은 `main` 에 바로 커밋한다.
+- 자세한 커밋/브랜치 규칙은 `.claude/CLAUDE.md` 참조.
