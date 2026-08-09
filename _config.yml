@@ -21,8 +21,11 @@ exclude:
   - .claude
 
 # 노트 md 에는 layout 필드를 박지 않으므로(promote 산출물 계약) 여기서 일괄 부여
+# render_with_liquid: false -- Liquid 는 코드펜스를 존중하지 않아 코드블록 안의
+# `{{ ... }}` 가 조용히 사라지고 `{% ... %}` 는 빌드를 깬다. 노트에 Liquid 를 쓸 일이 없으므로 끈다.
 defaults:
   - scope:
       path: "knowledge"
     values:
       layout: note
+      render_with_liquid: false
